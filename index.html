@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>NiiVue</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <style>
+    html,
+    body {
+      background-color: white;
+      color: black;
+    }
+    canvas {
+      position: absolute;
+      cursor: crosshair;
+    }
+  </style>
+  <body>
+    <main>
+      <canvas id="gl1" width="640" height="640" style="width: 640px; height: 640px"></canvas>
+    </main>
+    <script src="https://unpkg.com/@niivue/niivue@0.33.0/dist/niivue.umd.js"></script>
+    <script type="module" async>
+      var volumeList1 = [
+        { url: "./amos_0004_1.nii.gz", colorMap: "Gray", },
+        { url: "./amos_0004_2.nii.gz", colorMap: "Red",  },
+        { url: "./amos_0004_3.nii.gz", colorMap: "Green",  },
+        { url: "./amos_0004_4.nii.gz", colorMap: "Blue",  },
+      ];
+      var nv = new niivue.Niivue({ isResizeCanvas: false });
+      nv.setRadiologicalConvention(false);
+      nv.attachTo("gl1");
+      await nv.loadVolumes(volumeList1);
+      nv.opts.isColorbar = true;
+      nv.setSliceType(nv.sliceTypeRender);
+    </script>
+  </body>
+</html>
